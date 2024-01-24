@@ -1,22 +1,26 @@
-﻿using OxyPlot;
+﻿
+using OxyPlot;
 using OxyPlot.Series;
 using OxyPlot.Axes;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using OxyPlot.WindowsForms;
-
+//Code is converted from example code in the course
+//Not proficient in Oxyplot, so much code has been copied from bot
 class Program
 {
     static void Main(string[] args)
     {
-       var model = new PlotModel { Title = "Counted steps and Asymptotic running time" };
+       var model1 = new PlotModel { Title = "Counted steps and Asymptotic running time" };
         var countedStepsSeries = new LineSeries { Title = "counted steps", Color = OxyColors.Red };
         var asymptoticSeries = new LineSeries { Title = "O(n^2)", Color = OxyColors.Green };
-
+        var model2 = new PlotModel { Title = "Approximation of c" };
+        model2.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom, Title = "Size of n" });
+        model2.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "c Factor" });
         var scatterSeries = new ScatterSeries { Title = "approximation of c" };
 
-        List<int> B = new List<int> { 5, 2, 4, 6, 1, 3 };
+        List<int> B = new List<int> { 5, 2, 4, 6, 1, 3 };   
         int points = 13;
         List<double> x = new List<double>(), y = new List<double>(), refValues = new List<double>(), c = new List<double>();
 
@@ -38,17 +42,21 @@ class Program
             scatterSeries.Points.Add(new ScatterPoint(x[i], c[i]));
         }
 
-        model.Series.Add(countedStepsSeries);
-        model.Series.Add(asymptoticSeries);
-        model.Series.Add(scatterSeries);
-        var pngExporter = new PngExporter { Width = 600, Height = 400, Background = OxyColors.White };
-        using (var stream = File.Create("plot.png"))
-        {
-            pngExporter.Export(model, stream);
-        }
-
-        Console.WriteLine("Plot exported as 'plot.png'");
+        model1.Series.Add(countedStepsSeries);
+        model1.Series.Add(asymptoticSeries);
+        model2.Series.Add(scatterSeries);
+        ExportToPng(model1, "plot.png");
+        ExportToPng(model2, "plot2.png");
     }
+
+    static void ExportToPng(PlotModel model, string filename)
+{
+    var pngExporter = new PngExporter { Width = 600, Height = 400, Background = OxyColors.White };
+    using (var stream = File.Create(filename))
+    {
+        pngExporter.Export(model, stream);
+    }
+}
 
     static int InsertionSort(int[] arr)
     {
