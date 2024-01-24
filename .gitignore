@@ -1,0 +1,28 @@
+# Directories #
+[Bb]in/
+[Oo]bj/
+[Ll]ogs/
+packages/
+
+# Files #
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+*.pdb
+*.exe
+*.dll
+*.snk
+
+# Visual Studio Code #
+.vscode/
+*.code-workspace
+
+# Build results #
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+bld/
+[Bb]uild/
